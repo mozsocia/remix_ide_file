@@ -66,3 +66,38 @@ contract mapping_example {
 	}
 }
 ```
+
+```js
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
+
+contract MyContract2 {
+     struct Person {
+        uint id;
+        string firstName;
+        string lastName;
+    }
+
+    uint256 public peopleCount = 0;
+    mapping(uint => Person) public people;
+
+    address public owner;
+
+    modifier onlyOwner() {
+        require(msg.sender == owner);
+        _;
+    }
+    constructor() {
+        owner = msg.sender;
+    }
+
+   
+    function addPerson(string memory _firstName, string memory _lastName) public onlyOwner {
+        incrementCount();
+        people[peopleCount] = Person(peopleCount, _firstName, _lastName);
+    }
+    function incrementCount() internal {
+        peopleCount +=1;
+    }
+} 
+```
